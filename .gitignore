@@ -1,0 +1,29 @@
+# Virtual Environment
+venv/
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# Environment Variables
+.env
+
+# Database Files
+*.db
+
+# Jupyter Notebook Cache
+.ipynb_checkpoints/
+
+# Trained Models
+models/*.pkl
+models/*.joblib
+
+# Generated Reports
+reports/*.pdf
+
+# VS Code Settings (Optional)
+.vscode/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
