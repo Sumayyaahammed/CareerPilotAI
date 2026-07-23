@@ -27,3 +27,18 @@ reports/*.pdf
 # Operating System Files
 .DS_Store
 Thumbs.db
+
+
+# Large datasets
+data/resumes/Resume.csv
+
+# Processed datasets (optional)
+data/processed/
+
+
+# Ignore all datasets
+data/
+
+# Keep folder structure
+!data/.gitkeep
+
