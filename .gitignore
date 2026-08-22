@@ -42,3 +42,7 @@ data/
 # Keep folder structure
 !data/.gitkeep
 
+# RAG generated files
+data/processed/rag_index/
+
+data/resumes/*.pdf

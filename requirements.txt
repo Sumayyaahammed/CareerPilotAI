@@ -107,3 +107,16 @@ watchdog==6.0.0
 websockets==15.0.1
 xxhash==3.8.1
 zstandard==0.25.0
+pandas
+numpy
+scikit-learn
+joblib
+matplotlib
+seaborn
+jupyter
+notebook
+python-dotenv
+PyMuPDF
+spacy
+faiss-cpu
+sentence-transformers
