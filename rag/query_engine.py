@@ -1,12 +1,11 @@
 import os
 
-from embeddings import load_embedding_model
-from vector_store import load_faiss_index
+from rag.embeddings import load_embedding_model
+from rag.vector_store import load_faiss_index
 
 
-INDEX_PATH = "../data/processed/rag_index/career_index.faiss"
-
-CHUNKS_PATH = "../data/processed/rag_index/chunks.pkl"
+INDEX_PATH = "data/processed/rag_index/career_index.faiss"
+CHUNKS_PATH = "data/processed/rag_index/chunks.pkl"
 
 
 class RAGRetriever:

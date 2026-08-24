@@ -120,3 +120,8 @@ PyMuPDF
 spacy
 faiss-cpu
 sentence-transformers
+langchain
+langchain-huggingface
+langchain-community
+huggingface_hub
+langgraph

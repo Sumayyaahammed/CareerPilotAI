@@ -1,20 +1,21 @@
 import os
+from rag.document_loader import load_knowledge_base
+from rag.chunker import create_chunks
 
-from document_loader import load_knowledge_base
-from chunker import create_chunks
-from embeddings import (
+from rag.embeddings import (
     load_embedding_model,
     create_embeddings
 )
-from vector_store import (
+
+from rag.vector_store import (
     create_faiss_index,
     save_faiss_index
 )
 
+KNOWLEDGE_BASE = "data/knowledge_base"
 
-KNOWLEDGE_BASE = "../data/knowledge_base"
 
-OUTPUT_FOLDER = "../data/processed/rag_index"
+OUTPUT_FOLDER = "data/processed/rag_index"
 
 
 print("=" * 60)
