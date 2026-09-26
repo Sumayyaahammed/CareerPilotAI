@@ -1,64 +1,61 @@
-from llm.llm_config import get_llm
+from llm.llm_helper import generate_response
 
 
 def learning_roadmap_agent(state):
 
-    career = state.get(
-        "predicted_career",
-        "Unknown"
-    )
+    print("\n[Learning Roadmap Agent]")
 
-    skill_gap = state.get(
-        "skill_gap",
-        ""
-    )
+    profile = state.get("profile", {})
+    careers = state.get("career_recommendations", [])
+    skill_gap = state.get("skill_gap_analysis", "")
 
     prompt = f"""
-Create a practical learning roadmap for a candidate.
+You are the Learning Roadmap Agent of CareerPilot AI.
 
-Target career:
-{career}
+Candidate profile:
+{profile}
+
+Recommended careers:
+{careers}
 
 Skill gap:
 {skill_gap}
 
-Provide:
+Create a personalized learning roadmap.
 
-1. Beginner topics
-2. Intermediate topics
-3. Advanced topics
-4. Projects to build
-5. Recommended tools
-6. Suggested certifications
-7. A 3-month learning plan
+Include:
 
-Keep the recommendations realistic and structured.
+1. Beginner stage
+2. Intermediate stage
+3. Advanced stage
+4. Projects to practice
+5. Tools and technologies to learn
+6. Suggested timeline
+
+Make the roadmap realistic for a fresher.
 """
 
-    llm = get_llm()
+    try:
 
-    response = llm.chat.completions.create(
+        response = generate_response(
+            prompt,
+            max_tokens=800,
+            temperature=0.3
+        )
 
-        model="meta-llama/Llama-3.1-8B-Instruct",
+        print(response)
 
-        messages=[
-            {
-                "role": "system",
-                "content": "You are a professional career learning advisor."
-            },
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ],
+        return {
+            "learning_roadmap": response
+        }
 
-        max_tokens=800,
+    except Exception as error:
 
-        temperature=0.3
-    )
+        print(
+            f"Roadmap Agent Error: {error}"
+        )
 
-    roadmap = response.choices[0].message.content
-
-    return {
-        "learning_roadmap": roadmap
-    }
+        return {
+            "learning_roadmap": None,
+            "roadmap_error": str(error)
+        }

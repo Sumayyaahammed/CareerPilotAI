@@ -1,35 +1,60 @@
-from llm.career_advisor import CareerAdvisor
+from llm.llm_helper import generate_response
 
 
 def skill_gap_agent(state):
 
-    resume_text = state.get(
-        "resume_text",
-        ""
-    )
+    print("\n[Skill Gap Agent]")
 
-    predicted_career = state.get(
-        "predicted_career",
-        "Unknown"
-    )
+    profile = state.get("profile", {})
+    careers = state.get("career_recommendations", [])
 
-    context = state.get(
-        "retrieved_context",
-        ""
-    )
+    prompt = f"""
+You are the Skill Gap Agent of CareerPilot AI.
 
-    advisor = CareerAdvisor()
+Candidate profile:
+{profile}
 
-    profile = {
-        "predicted_career": predicted_career,
-        "resume": resume_text[:3000]
-    }
+Recommended careers:
+{careers}
 
-    result = advisor.generate_skill_gap(
-        profile,
-        context
-    )
+Identify the important skills the candidate already has
+and the skills they need to improve for the recommended careers.
 
-    return {
-        "skill_gap": result
-    }
+Return:
+
+CURRENT SKILLS:
+- ...
+
+SKILL GAPS:
+- ...
+
+PRIORITY SKILLS:
+- ...
+
+Keep the answer practical for a fresher.
+"""
+
+    try:
+
+        response = generate_response(
+            prompt,
+            max_tokens=600,
+            temperature=0.3
+        )
+
+        print(response)
+
+        return {
+            "skill_gap_analysis": response
+        }
+
+    except Exception as error:
+
+        print(
+            f"Skill Gap Agent Error: {error}"
+        )
+
+        return {
+            "skill_gap_analysis": None,
+            "skill_gap_error": str(error)
+        }

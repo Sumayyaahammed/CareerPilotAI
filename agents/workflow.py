@@ -1,14 +1,6 @@
-from langgraph.graph import (
-    StateGraph,
-    START,
-    END
-)
+from langgraph.graph import StateGraph, START, END
 
 from agents.state import CareerState
-
-from agents.profile_agent import (
-    profile_analysis_agent
-)
 
 from agents.career_agent import (
     career_recommendation_agent
@@ -23,83 +15,69 @@ from agents.roadmap_agent import (
 )
 
 from agents.interview_agent import (
-    interview_agent
+    interview_preparation_agent
 )
 
-from agents.report_agent import (
-    report_generation_agent
-)
+from agents.final_report_agent import final_report_agent
 
 
 def build_workflow():
 
-    workflow = StateGraph(
-        CareerState
-    )
+    graph = StateGraph(CareerState)
 
-    workflow.add_node(
-        "profile_analysis",
-        profile_analysis_agent
-    )
-
-    workflow.add_node(
+    graph.add_node(
         "career_recommendation",
         career_recommendation_agent
     )
 
-    workflow.add_node(
+    graph.add_node(
         "skill_gap",
         skill_gap_agent
     )
 
-    workflow.add_node(
+    graph.add_node(
         "learning_roadmap",
         learning_roadmap_agent
     )
 
-    workflow.add_node(
+    graph.add_node(
         "interview_preparation",
-        interview_agent
+        interview_preparation_agent
     )
 
-    workflow.add_node(
-        "report_generation",
-        report_generation_agent
+    graph.add_node(
+        "final_report",
+        final_report_agent
     )
 
-    workflow.add_edge(
+    graph.add_edge(
         START,
-        "profile_analysis"
-    )
-
-    workflow.add_edge(
-        "profile_analysis",
         "career_recommendation"
     )
 
-    workflow.add_edge(
+    graph.add_edge(
         "career_recommendation",
         "skill_gap"
     )
 
-    workflow.add_edge(
+    graph.add_edge(
         "skill_gap",
         "learning_roadmap"
     )
 
-    workflow.add_edge(
+    graph.add_edge(
         "learning_roadmap",
         "interview_preparation"
     )
 
-    workflow.add_edge(
+    graph.add_edge(
         "interview_preparation",
-        "report_generation"
+        "final_report"
     )
 
-    workflow.add_edge(
-        "report_generation",
+    graph.add_edge(
+        "final_report",
         END
     )
 
-    return workflow.compile()
+    return graph.compile()
